@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.lucky.csfp.dao.PersonInfoDao">
+
+    <sql id="t_personInfo_column">
+        id,sfzh,zsxm,xb,csrq,zjz,mz,zzmm,whcd,hklx,hjd,hyzk,zy,jg
+    </sql>
+    <!--根据身份证号查询对应的记录-->
+    <select id="findPersonInfoByIdCard" resultType="cn.lucky.csfp.model.PersonInfo">
+        select <include refid="t_personInfo_column"/>
+            from t_personinfo
+                where sfzh=#{idCard}
+    </select>
+
+    <!--查询所有的人口信息记录-->
+    <select id="findPersonInfoByList" resultType="cn.lucky.csfp.model.PersonInfo">
+        select <include refid="t_personInfo_column"/> from t_personinfo
+    </select>
+
+
+    <!--添加一条人口信息-->
+    <insert id="insertPersonInfo" parameterType="cn.lucky.csfp.model.PersonInfo">
+        insert into t_personinfo(sfzh,zsxm,xb,csrq,zjz,mz,zzmm,whcd,hklx,hjd,hyzk,zy,jg)
+        values(
+            #{personInfo.sfzh},
+            #{personInfo.zsxm},
+            #{personInfo.xb},
+            #{personInfo.csrq},
+            #{personInfo.zjz},
+            #{personInfo.mz},
+            #{personInfo.zzmm},
+            #{personInfo.whcd},
+            #{personInfo.hklx},
+            #{personInfo.hjd},
+            #{personInfo.hyzk},
+            #{personInfo.zy},
+            #{personInfo.jg}
+        )
+    </insert>
+
+    <update id="updatePersonInfo" parameterType="cn.lucky.csfp.model.PersonInfo">
+        update t_personinfo
+        set sfzh=#{personInfo.sfzh},
+            zsxm=#{personInfo.zsxm},
+            xb=#{personInfo.xb},
+            csrq=#{personInfo.csrq},
+            zjz= #{personInfo.zjz},
+            mz=#{personInfo.mz},
+            zzmm=#{personInfo.zzmm},
+            whcd=#{personInfo.whcd},
+            hklx=#{personInfo.hklx},
+            hjd=#{personInfo.hjd},
+            hyzk=#{personInfo.hyzk},
+            zy=#{personInfo.zy},
+            jg=#{personInfo.jg}
+        where
+            id=#{personInfo.id}
+    </update>
+
+
+    <delete id="deletePersonInfo">
+        delete from t_personInfo where id=#{deleteId}
+    </delete>
+</mapper>
